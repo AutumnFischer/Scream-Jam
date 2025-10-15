@@ -5,7 +5,7 @@ using TMPro;
 public class GameTimer : MonoBehaviour
 {
     [Header("Timer Settings")]
-    public float timeLimit = 90f;
+    public float timeLimit = 60f;
     private float timeRemaining;
 
     [Header("UI Display")]
