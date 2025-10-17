@@ -1,51 +1,71 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float moveSpeed = 12f;
-    public float jumpForce = 18f;
+    public float jumpForce = 21f;
+
+    [Header("Ground Check Settings")]
+    public Transform groundCheck;    
+    public float groundCheckRadius = 0.2f;
+    public LayerMask groundLayer;
+
+    [Header("Death Settings")]
+    public float fallThreshold = -30f;
 
     private Rigidbody2D rb;
     private bool isGrounded;
-
-    [Header("Ground Check")]
-    public Transform groundCheck;
-    public float checkRadius = 0.1f;
-    public LayerMask groundLayer;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>(); 
     }
 
     void Update()
     {
+        MovePlayer();
+        CheckGrounded();
+        HandleJump();
+        CheckFallDeath();
+    }
+
+    void MovePlayer()
+    {
         float moveInput = Input.GetAxisRaw("Horizontal");
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
-        if (moveInput != 0)
-            transform.localScale = new Vector3(Mathf.Sign(moveInput), 1, 1);
+        if (moveInput > 0.1f)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (moveInput < -0.1f)
+        {
+            spriteRenderer.flipX = true; 
+        }
+    }
 
+    void CheckGrounded()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    }
+
+    void HandleJump()
+    {
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
     }
 
-    void FixedUpdate()
+    void CheckFallDeath()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        if (groundCheck != null)
+        if (transform.position.y < fallThreshold)
         {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(groundCheck.position, checkRadius);
+            ResetPlayer();
         }
     }
 
@@ -53,13 +73,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            Die();
+            ResetPlayer();
         }
     }
 
-    private void Die()
+    void ResetPlayer()
     {
-        Debug.Log("Player died!");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Goal"))
+        {
+            FindObjectOfType<GameWinManager>().PlayerWon();
+        }
     }
 }
