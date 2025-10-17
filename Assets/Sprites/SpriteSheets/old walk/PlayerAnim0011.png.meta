@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9d755b48627b1455fa6453f191da4315
+guid: dc96c4410228a4c6bbcfbaec99603dbf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -200856563281330137
-    second: PlayerAnim0007_0
+      213: -7083503249652472275
+    second: PlayerAnim0011_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,11 +109,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerAnim0007_0
+      name: PlayerAnim0011_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7208fc6150a663df0800000000000000
-      internalID: -200856563281330137
+      spriteID: d26a32f035752bd90800000000000000
+      internalID: -7083503249652472275
       vertices: []
       indices: 
       edges: []
@@ -148,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PlayerAnim0007_0: -200856563281330137
+      PlayerAnim0011_0: -7083503249652472275
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
